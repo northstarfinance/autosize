@@ -121,7 +121,10 @@ function assign(ta) {
 
 		// prevents scroll-position jumping
 		overflows.forEach(el => {
-			el.node.scrollTop = el.scrollTop
+			// Fix for iOS 11.1. Setting scrollTop caused the input field to jump under the keyboard.
+			if (el.node.scrollTop !== el.scrollTop) {
+				el.node.scrollTop = el.scrollTop
+			}
 		});
 
 		if (docTop) {
